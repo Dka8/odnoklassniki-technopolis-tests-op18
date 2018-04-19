@@ -28,6 +28,12 @@ public abstract class HelperBase {
         driver.findElement(locator).click();
     }
 
+    protected void clickBy(By locator, int xOffSet, int yOffSet) {
+        WebElement webElement = driver.findElement(locator);
+        Actions builder = new Actions(driver);
+        builder.moveToElement(webElement, xOffSet, yOffSet).click().build().perform();
+    }
+
     protected boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
