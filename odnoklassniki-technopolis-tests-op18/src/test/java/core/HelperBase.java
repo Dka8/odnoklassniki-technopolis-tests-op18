@@ -1,11 +1,15 @@
 package core;
 
 import com.google.common.base.Preconditions;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public abstract class HelperBase {
@@ -32,6 +36,44 @@ public abstract class HelperBase {
         WebElement webElement = driver.findElement(locator);
         Actions builder = new Actions(driver);
         builder.moveToElement(webElement, xOffSet, yOffSet).click().build().perform();
+    }
+
+    protected WebElement getElement(By by) {
+        Assert.assertTrue("Элемент не виден",
+                explicitWait(
+                        ExpectedConditions.visibilityOfElementLocated(by),
+                        5,
+                        500));
+        try {
+            return driver.findElement(by);
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    protected String getAttribute(By by, String attribute){
+        try {
+            return driver.findElement(by).getAttribute(attribute);
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    protected Select getSelectElement(By by){
+        try {
+            return new Select(driver.findElement(by));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    protected void addImage(By button, String pathname) {
+        driver.findElement(button).sendKeys(pathname);
+
+    }
+
+    protected String getCurrentUrl(){
+        return driver.getCurrentUrl();
     }
 
     protected boolean isElementPresent(By by) {

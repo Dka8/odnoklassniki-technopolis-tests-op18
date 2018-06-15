@@ -1,6 +1,5 @@
 package tests;
 
-import core.TestBase;
 import core.examples.*;
 import org.junit.Assert;
 import org.junit.Test;

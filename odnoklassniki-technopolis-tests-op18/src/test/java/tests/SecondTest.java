@@ -1,8 +1,7 @@
 package tests;
 
-import core.GroupMainPage;
+import core.GroupPages.GroupMainPage;
 import core.LoginMainPage;
-import core.TestBase;
 import core.UserMainPage;
 import model.TestBot;
 import org.junit.Test;
